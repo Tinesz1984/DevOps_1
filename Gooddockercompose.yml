@@ -1,27 +1,40 @@
-version: '3.9'
+version: '3.8'
 
 services:
   web:
-    build: .
+    image: nginx:1.23.3  # фиксируем версию
     ports:
-      - "5000:5000"
-    depends_on:
-      - db
+      - "${WEB_PORT:-8080}:80"  # используем переменные окружения
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS_FILE: /run/secrets/db_root_password  # используем секреты
+    secrets:
+      - db_root_password
     networks:
-      - frontend
+      - webnet
+    restart: unless-stopped
 
   db:
-    image: postgres:14
+    image: mysql:5.7
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_root_password  # используем секреты
+      MYSQL_DATABASE: mydb
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/mysql
+    secrets:
+      - db_root_password
     networks:
-      - backend
+      - dbnet
+    restart: unless-stopped
 
 volumes:
   db_data:
 
+secrets:
+  db_root_password:
+    file: ./secrets/db_root_password  # хранится в отдельном файле с ограниченным доступом
+
 networks:
-  frontend:
-  backend:
+  webnet:
+  dbnet:
