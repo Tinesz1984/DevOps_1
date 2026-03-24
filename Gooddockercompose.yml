@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - frontend
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+volumes:
+  db_data:
+
+networks:
+  frontend:
+  backend:
