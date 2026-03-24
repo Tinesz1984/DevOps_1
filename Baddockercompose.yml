@@ -2,14 +2,24 @@ version: '3'
 
 services:
   web:
-    build: .
+    image: nginx:latest
     ports:
-      - "5000:5000"
-    container_name: my_web
-    depends_on:
-      - db
+      - "80:80"   # плохо: использовать стандартный порт без настройки переменных
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root  # плохо: хранить пароли в открытом виде
+    networks:
+      - default  # плохо: использовать стандартную сеть, где все видят друг друга
 
   db:
-    image: postgres:latest
+    image: mysql:5.7
+    restart: always
     environment:
-      POSTGRES_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root  # плохо: пароль в коде
+      MYSQL_DATABASE: mydb
+    volumes:
+      - db_data:/var/lib/mysql  # плохо: нет явного указания для backup и security
+
+volumes:
+  db_data:
