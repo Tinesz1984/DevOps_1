@@ -114,6 +114,9 @@ db:
 # Выполнение файлов  
 
 Bad Docker: 
-
+Формируем контейнер: 
 ![telegram-cloud-photo-size-2-5368702549160040599-y](https://github.com/user-attachments/assets/d5a59b76-55ef-46aa-9670-9d1a5a16442f)
 
+Запускаем: 
+<img width="1181" height="120" alt="image" src="https://github.com/user-attachments/assets/7bb9fc58-508e-42ab-9a58-e65c80ea713b" />
+Первый Докерфайл успешно(надеюсь, успешно) запущен. 
