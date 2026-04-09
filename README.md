@@ -120,3 +120,7 @@ Bad Docker:
 Запускаем: 
 <img width="1181" height="120" alt="image" src="https://github.com/user-attachments/assets/7bb9fc58-508e-42ab-9a58-e65c80ea713b" />
 Первый Докерфайл успешно(надеюсь, успешно) запущен. 
+
+
+Запуск GoodDockerfile, в принципе, произошел точно также: 
+<img width="874" height="459" alt="image" src="https://github.com/user-attachments/assets/400b1fc1-c670-48a5-8029-6289a036978b" />
